@@ -9,22 +9,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
+const typeorm_config_1 = require("./configs/typeorm.config");
+const config_1 = require("@nestjs/config");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forRoot({
-                type: 'postgres',
-                host: 'localhost',
-                port: 5432,
-                username: 'postgres',
-                password: '123',
-                database: 'postgres',
-                autoLoadEntities: true,
-                synchronize: true,
-            }),
+            typeorm_1.TypeOrmModule.forRoot(typeorm_config_1.typeOrmConfig),
+            config_1.ConfigModule.forRoot({ envFilePath: ['.env', '.env.development.local', '.env.development'], isGlobal: true }),
         ],
     })
 ], AppModule);

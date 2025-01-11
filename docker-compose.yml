@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: oracledbjuru
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+    volumes:
+      - .:/app
+    depends_on:
+      - oracle
+
+  oracle:
+    image: gvenzl/oracle-xe:21-slim
+    container_name: oracle-db
+    environment:
+      - ORACLE_PWD=teste
+      - ORACLE_SID=BDTESTE
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+    shm_size: '1gb'
+
+volumes:
+  oracle-data:
